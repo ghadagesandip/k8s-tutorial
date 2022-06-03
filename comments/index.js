@@ -15,8 +15,10 @@ app.get("/posts/:id/comments", (req, res) => {
 });
 
 app.post("/posts/:id/comments", async (req, res) => {
+  console.log('comment endpoint call')
   const commentId = randomBytes(4).toString("hex");
   const { content } = req.body;
+  console.log('comment body received')
 
   const comments = commentsByPostId[req.params.id] || [];
 

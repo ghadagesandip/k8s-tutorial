@@ -1,0 +1,41 @@
+apiVersion: skaffold/v2beta28
+kind: Config
+metadata:
+  name: udemy
+build:
+  artifacts:
+  - image: sandiprg/client
+    context: client
+    docker:
+      dockerfile: Dockerfile
+  - image: sandiprg/comments
+    context: comments
+    docker:
+      dockerfile: Dockerfile
+  - image: sandiprg/event-bus
+    context: event-bus
+    docker:
+      dockerfile: Dockerfile
+  - image: sandiprg/moderation
+    context: moderation
+    docker:
+      dockerfile: Dockerfile
+  - image: sandiprg/posts
+    context: posts
+    docker:
+      dockerfile: Dockerfile
+  - image: sandiprg/query
+    context: query
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - infra/k8s/client-depl.yaml
+    - infra/k8s/comments-depl.yaml
+    - infra/k8s/event-bus-depl.yaml
+    - infra/k8s/ingress-srv.yaml
+    - infra/k8s/moderation-depl.yaml
+    - infra/k8s/posts-depl.yaml
+    - infra/k8s/posts-srv.yaml
+    - infra/k8s/query-depl.yaml

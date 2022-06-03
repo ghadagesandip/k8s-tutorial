@@ -1,0 +1,62 @@
+apiVersion: skaffold/v2beta28
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: 'false'
+  artifacts:
+    - image: sandiprg/client
+      context: ./client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            desc: .
+    - image: sandiprg/posts
+      context: ./posts
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            desc: .
+    - image: sandiprg/comments
+      context: ./comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            desc: .
+    - image: sandiprg/event-bus
+      context: ./event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            desc: .
+    - image: sandiprg/moderation
+      context: ./moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            desc: .
+    - image: sandiprg/query
+      context: ./query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            desc: .
+
+
+
+
